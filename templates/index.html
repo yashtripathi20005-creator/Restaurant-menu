@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍽️ Gourmet Restaurant - Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>🍽️ Gourmet Restaurant</h1>
+            <p>Experience culinary excellence</p>
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <button class="nav-btn active" data-category="all" onclick="filterCategory('all')">All</button>
+            {% for category in categories %}
+            <button class="nav-btn" data-category="{{ category.id }}" onclick="filterCategory('{{ category.id }}')">
+                {{ category.name }}
+            </button>
+            {% endfor %}
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search menu..." onkeyup="searchMenu()">
+            <button onclick="searchMenu()">🔍</button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="menu-container" id="menuContainer">
+            <!-- Menu items will be rendered here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+            <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
